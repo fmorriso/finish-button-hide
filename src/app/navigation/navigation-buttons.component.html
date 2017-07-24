@@ -3,6 +3,6 @@
     <li class="previous"><a href="javascript:;">Previous</a></li>
     <li class="next last"><a href="javascript:;">Last</a></li>
     <li class="next"><a href="javascript:;">Next</a></li>
-    <li class="finish"><a href="javascript:;">Finish</a></li>
+    <li *ngIf="navService.reachedLast" class="finish"><a href="javascript:;">Finish</a></li>
 </ul>
 

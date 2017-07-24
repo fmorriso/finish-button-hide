@@ -12,7 +12,7 @@ export class NavigationService {
   }
 
   set reachedLast(value: boolean){
-  	this._reachedLast = true;
+  	this._reachedLast = value;
   }
 
 }

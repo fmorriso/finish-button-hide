@@ -8,12 +8,10 @@ import {NavigationService} from "./navigation.service";
 })
 export class NavigationButtonsComponent implements OnInit {
 
-	constructor(private navService: NavigationService) {
+	constructor(public navService: NavigationService) {
 	}
 
 	ngOnInit() {
 	}
-
-
 
 }
