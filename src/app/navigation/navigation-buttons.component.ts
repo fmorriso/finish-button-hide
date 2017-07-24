@@ -1,5 +1,6 @@
 import {Component, OnInit} from '@angular/core';
 import {NavigationService} from "./navigation.service";
+import {Router} from "@angular/router";
 
 @Component({
 	selector: 'app-navigation-buttons',
@@ -8,10 +9,18 @@ import {NavigationService} from "./navigation.service";
 })
 export class NavigationButtonsComponent implements OnInit {
 
-	constructor(public navService: NavigationService) {
+	firstPath: string;
+	lastPath: string;
+
+	constructor(public navService: NavigationService,
+	            private router: Router) {
 	}
 
 	ngOnInit() {
+		this.firstPath  = `/${this.navService.firstPath}`;
+		this.lastPath  = `/${this.navService.lastPath}`;
 	}
+
+
 
 }

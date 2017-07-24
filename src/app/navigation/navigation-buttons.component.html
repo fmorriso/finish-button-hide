@@ -1,8 +1,18 @@
 <ul class="pager wizard">
-    <li class="previous first"><a href="javascript:;">First</a></li>
-    <li class="previous"><a href="javascript:;">Previous</a></li>
-    <li class="next last"><a href="javascript:;">Last</a></li>
-    <li class="next"><a href="javascript:;">Next</a></li>
-    <li *ngIf="navService.reachedLast" class="finish"><a href="javascript:;">Finish</a></li>
+    <li class="previous first">
+        <a [routerLink]="firstPath">First</a>
+    </li>
+    <li class="previous">
+        <a href="javascript:;">Previous</a>
+    </li>
+    <li class="next last">
+        <a [routerLink]="lastPath">Last</a>
+    </li>
+    <li class="next">
+        <a [routerLink]="navService.nextPath">Next</a>
+    </li>
+    <li *ngIf="navService.isLast" class="finish">
+        <a [routerLink]="lastPath">Finish</a>
+    </li>
 </ul>
 
