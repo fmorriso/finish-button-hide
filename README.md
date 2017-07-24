@@ -1,6 +1,11 @@
-# Brad
+# Finish Button Hide
 
+## Angular-CLI Information
 This project was generated with [Angular CLI](https://github.com/angular/angular-cli) version 1.2.3.
+
+## Angular Information
+
+This project uses Angular 4.3.1
 
 ## Development server
 
