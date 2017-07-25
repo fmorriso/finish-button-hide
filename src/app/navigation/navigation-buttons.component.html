@@ -1,18 +1,20 @@
-<ul class="pager wizard">
-    <li class="previous first">
-        <a [routerLink]="firstPath">First</a>
-    </li>
-    <li class="previous">
-        <a href="javascript:;">Previous</a>
-    </li>
-    <li class="next last">
-        <a [routerLink]="lastPath">Last</a>
-    </li>
-    <li class="next">
-        <a [routerLink]="navService.nextPath">Next</a>
-    </li>
-    <li *ngIf="navService.isLast" class="finish">
-        <a [routerLink]="lastPath">Finish</a>
-    </li>
-</ul>
+<div class="">
 
+    <ng-container>
+        <button [ngClass]="firstButtonClass" (click)="first()">First</button>
+    </ng-container>
+
+    <ng-container>
+        <button [ngClass]="previousButtonClass" (click)="previous()">Previous</button>
+    </ng-container>
+
+    <ng-container [ngSwitch]="showFinish">
+        <button *ngSwitchCase="true" [ngClass]="finishButtonEnabledClass" (click)="finish()">Finish</button>
+        <button *ngSwitchCase="true" [ngClass]="nextWithFinishButtonClass" (click)="next()">Next</button>
+        <button *ngSwitchDefault     [ngClass]="nextWithoutFinishButtonClass" (click)="next()">Next</button>
+    </ng-container>
+
+    <ng-container>
+        <button [ngClass]="lastButtonClass" (click)="last()">Last</button>
+    </ng-container>
+</div>

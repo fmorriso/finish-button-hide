@@ -14,23 +14,38 @@ import {NavigationService} from "./navigation/navigation.service";
 
 const topLevelRoutes: Routes = [
 	{
-		path: 'home',
-		component: HomeComponent,
+		path: 'home', component: HomeComponent,
 		canActivate: [NavigationService]
 	},
 	{
-		path: 'first',
-		component: FirstComponent, canActivate: [NavigationService], data: {isFirst: true}
+		path: 'first', component: FirstComponent,
+		canActivate: [NavigationService],
+		data: {isFirst: true}
 	},
 	{
-		path: 'second',
-		component: SecondComponent, canActivate: [NavigationService]
+		path: 'second',	component: SecondComponent,
+		canActivate: [NavigationService]
 	},
-	{path: 'third', component: ThirdComponent},
-	{path: 'fourth', component: FourthComponent},
-	{path: 'fifth', component: FifthComponent},
-	{path: 'sixth', component: SixthComponent},
-	{path: 'seventh', component: SeventhComponent, data: {isLast: true}},
+	{
+		path: 'third', component: ThirdComponent,
+		canActivate: [NavigationService]
+	},
+	{
+		path: 'fourth', component: FourthComponent,
+		canActivate: [NavigationService]
+	},
+	{
+		path: 'fifth', component: FifthComponent,
+		canActivate: [NavigationService]
+	},
+	{
+		path: 'sixth', component: SixthComponent,
+		canActivate: [NavigationService]
+	},
+	{
+		path: 'seventh', component: SeventhComponent,
+		canActivate: [NavigationService],
+		data: {isLast: true}},
 	{
 		path: '',
 		redirectTo: '/home',

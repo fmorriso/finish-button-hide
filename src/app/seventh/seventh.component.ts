@@ -1,4 +1,4 @@
-import {Component, OnInit} from '@angular/core';
+import {Component, OnDestroy, OnInit} from '@angular/core';
 import {ActivatedRoute} from "@angular/router";
 import {NavigationService} from "../navigation/navigation.service";
 
@@ -7,7 +7,7 @@ import {NavigationService} from "../navigation/navigation.service";
 	templateUrl: './seventh.component.html',
 	styleUrls: ['./seventh.component.scss']
 })
-export class SeventhComponent implements OnInit {
+export class SeventhComponent implements OnInit,OnDestroy {
 
 	private compName: string = 'SeventhComponent';
 
@@ -16,7 +16,11 @@ export class SeventhComponent implements OnInit {
 	}
 
 	ngOnInit(): void {
+		this.navService.isLast = true;
+	}
 
+	ngOnDestroy(): void {
+		this.navService.isLast = false;
 	}
 
 }

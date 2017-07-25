@@ -16,10 +16,6 @@ export class FifthComponent implements OnInit {
 	}
 
 	ngOnInit(): void {
-		// examine route data for optional {isLast: true} and/or {isFirst: true } indicators so navigation service is aware
-		const data = this.route.snapshot.data;
-		//console.log(`${this.compName} - ngOnInit - route.snapshot.data=${JSON.stringify(data)}`);
-		this.navService.isFirst = data['isFirst'] ? true : false;
-		this.navService.isLast = data['isLast'] ? true : false;
+
 	}
 }

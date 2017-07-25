@@ -1,13 +1,21 @@
-import {Injectable} from '@angular/core';
-import {ActivatedRouteSnapshot, CanActivate, Route, Router, RouterStateSnapshot, Routes} from "@angular/router";
+import {Injectable, OnInit} from '@angular/core';
+import {ActivatedRouteSnapshot, CanActivate, Route, Router, RouterStateSnapshot, Routes} from '@angular/router';
+
+import {NavigableItem} from './navigable-item';
 
 @Injectable()
-export class NavigationService implements CanActivate {
+export class NavigationService implements CanActivate, OnInit {
 
+
+	private navigableItems: NavigableItem[] = [];
 
 	constructor(private router: Router) {
 	}
 
+	ngOnInit(): void {
+		// Use the router snapshot to perform a one-time build of the list of
+		// navigable items that we can use to handle the Next/Previous/First/Last button actions.
+	}
 	canActivate(route: ActivatedRouteSnapshot, state: RouterStateSnapshot): boolean {
 		this.nextPath = state.url;
 		return true;
