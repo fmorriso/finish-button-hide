@@ -12,7 +12,7 @@ export class NavigationButtonsComponent implements OnInit {
 	firstPath: string;
 	lastPath: string;
 	baseButtonSizeClass: string = 'col-md-1';
-	baseButtonOffsetClass: string = 'col-md-offset-1';
+	baseButtonOffsetClass: string = 'col-md-offset-3';
 	baseButtonClass: string = `${this.baseButtonSizeClass} btn btn-primary`;
 	normalButtonClass: string = `${this.baseButtonClass} btn-extra-horizontal-spacing`;
 
@@ -30,7 +30,7 @@ export class NavigationButtonsComponent implements OnInit {
 		return this.navService.isLast;
 	}
 
-	private _finishButtonEnabledClass: string = `${this.normalButtonClass} btn-finish-enabled`;
+	private _finishButtonEnabledClass: string = `${this.baseButtonOffsetClass} ${this.baseButtonClass}`;
 	get finishButtonEnabledClass(): string {
 		return this._finishButtonEnabledClass;
 	}

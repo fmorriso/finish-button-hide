@@ -8,13 +8,12 @@
         <button [ngClass]="previousButtonClass" (click)="previous()">Previous</button>
     </ng-container>
 
-    <ng-container [ngSwitch]="showFinish">
-        <button *ngSwitchCase="true" [ngClass]="finishButtonEnabledClass" (click)="finish()">Finish</button>
-        <button *ngSwitchCase="true" [ngClass]="nextWithFinishButtonClass" (click)="next()">Next</button>
-        <button *ngSwitchDefault     [ngClass]="nextWithoutFinishButtonClass" (click)="next()">Next</button>
+    <ng-container *ngIf="showFinish">
+        <button  [ngClass]="finishButtonEnabledClass" (click)="finish()">Finish</button>
     </ng-container>
 
-    <ng-container>
-        <button [ngClass]="lastButtonClass" (click)="last()">Last</button>
+    <ng-container *ngIf="!showFinish">
+        <button [ngClass]="nextWithoutFinishButtonClass" (click)="next()">Next</button>
+        <button [ngClass]="lastButtonClass"              (click)="last()">Last</button>
     </ng-container>
 </div>
