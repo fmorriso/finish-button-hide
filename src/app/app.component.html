@@ -1,5 +1,9 @@
-
-    <app-navigation></app-navigation>
-    <router-outlet></router-outlet>
-    <app-navigation-buttons></app-navigation-buttons>
-    <app-footer></app-footer>
+<!--
+Previously, this entire set of HTML was surrounded by a single outer div class="container".
+Now, each "component" decides whether to present itself in a class="container"
+or a class="container-fluid"
+ -->
+<app-navigation></app-navigation>
+<router-outlet></router-outlet>
+<app-navigation-buttons></app-navigation-buttons>
+<app-footer></app-footer>
