@@ -1,22 +1,62 @@
 import {Injectable, OnInit} from '@angular/core';
-import {ActivatedRouteSnapshot, CanActivate, Route, Router, RouterStateSnapshot, Routes} from '@angular/router';
+import {
+	ActivatedRoute, ActivatedRouteSnapshot, CanActivate, Route, Router, RouterStateSnapshot,
+	Routes
+} from '@angular/router';
 
 import {NavigableItem} from './navigable-item';
+import {formatDiagnostic} from "ts-node/dist";
 
 @Injectable()
-export class NavigationService implements CanActivate, OnInit {
+export class NavigationService implements CanActivate {
 
-
+	private compName: string = 'NavigationService';
 	private navigableItems: NavigableItem[] = [];
 
-	constructor(private router: Router) {
+	constructor(private router: Router,
+	            private route: ActivatedRoute) {
+		console.log(`${this.compName} - constructor`);
+		this.init();
 	}
 
-	ngOnInit(): void {
-		// Use the router snapshot to perform a one-time build of the list of
-		// navigable items that we can use to handle the Next/Previous/First/Last button actions.
+	private init(): void {
+		console.log(`${this.compName} - init`);
+		//let x = this.route.routeConfig;
+		let routes: Routes = this.router.config;
+		let i: number = 0;
+		for(let r of routes){
+			// console.log(`r=${JSON.stringify(r)}`);
+			// ignore non-specific routes
+			if(r.path.length === 0) {
+				continue;
+			}
+			if(r.path === '**'){
+				continue;
+			}
+			let ni = new NavigableItem();
+			ni.url = r.path;
+
+			this.navigableItems.push(ni);
+			// if this is not the first one ...
+			if(i > 0){
+				// ... tell previous item what its "next" property should be
+				let previousItem: NavigableItem = this.navigableItems[i-1];
+				previousItem.next = r.path;
+			}
+			i++;
+		}
+		// back-fill the "previous" entry now that we know the total number of navigable items we're dealing with
+		for(i = this.navigableItems.length - 1; i > 0; i--){
+			let ni: NavigableItem = this.navigableItems[i];
+			// console.log(JSON.stringify(ni));
+			ni.previous = this.navigableItems[i-1].url;
+		}
+		console.log(`${this.compName} - init - navigableItems=${JSON.stringify(this.navigableItems)}`);
 	}
-	canActivate(route: ActivatedRouteSnapshot, state: RouterStateSnapshot): boolean {
+
+	canActivate(route: ActivatedRouteSnapshot,
+	            state: RouterStateSnapshot): boolean {
+		console.log(`${this.compName} - canActivate`);
 		this.nextPath = state.url;
 		return true;
 	}
