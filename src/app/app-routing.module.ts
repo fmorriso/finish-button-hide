@@ -60,7 +60,7 @@ const topLevelRoutes: Routes = [
 
 
 const routeConfig = {
-	enableTracing: true
+	enableTracing: false
 };
 
 @NgModule({

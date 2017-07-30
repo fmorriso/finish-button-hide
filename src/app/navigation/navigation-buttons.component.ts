@@ -82,12 +82,13 @@ export class NavigationButtonsComponent implements OnInit {
 
 	next(): void {
 		console.log(`${this.compName} - next`);
+		this.navService.next();
 	}
 
 	previous(): void {
 		console.log(`${this.compName} - previous`);
+		this.navService.previous();
 	}
-
 
 	public getNextButtonClass(): string {
 		let returnValue = '';

@@ -20,19 +20,17 @@ export class NavigationService implements CanActivate {
 	}
 
 	private init(): void {
-		console.log(`${this.compName} - init`);
-		//let x = this.route.routeConfig;
+		// console.log(`${this.compName} - init`);
 		let routes: Routes = this.router.config;
 		let i: number = 0;
+		// read the route configuration and start building the list of navigable items
 		for(let r of routes){
 			// console.log(`r=${JSON.stringify(r)}`);
 			// ignore non-specific routes
-			if(r.path.length === 0) {
+			if(r.path.length === 0 || r.path.indexOf('*')!== -1) {
 				continue;
 			}
-			if(r.path === '**'){
-				continue;
-			}
+
 			let ni = new NavigableItem();
 			ni.url = r.path;
 
@@ -49,16 +47,37 @@ export class NavigationService implements CanActivate {
 		for(i = this.navigableItems.length - 1; i > 0; i--){
 			let ni: NavigableItem = this.navigableItems[i];
 			// console.log(JSON.stringify(ni));
-			ni.previous = this.navigableItems[i-1].url;
+			let previousItem: NavigableItem = this.navigableItems[i-1];
+			ni.previous = previousItem.url;
 		}
 		console.log(`${this.compName} - init - navigableItems=${JSON.stringify(this.navigableItems)}`);
 	}
 
 	canActivate(route: ActivatedRouteSnapshot,
 	            state: RouterStateSnapshot): boolean {
-		console.log(`${this.compName} - canActivate`);
-		this.nextPath = state.url;
+		console.log(`${this.compName} - canActivate - state.url=${state.url}`);
+		// pull off the leading /
+
+		const pathToFind: string = state.url.replace('/', '');
+		this.currentUrl = pathToFind;
+		let found: NavigableItem = this.navigableItems.find(ni => ni.url === pathToFind);
+		if(found){
+			this.nextPath = found.next;
+			this.previousPath = found.previous;
+		}
 		return true;
+	}
+
+	next() : void {
+		if(this.nextPath && this.nextPath.length > 0){
+			this.router.navigate([`/${this.nextPath}`]);
+		}
+	}
+
+	previous() : void {
+		if(this.previousPath && this.previousPath.length > 0){
+			this.router.navigate([`/${this.previousPath}`]);
+		}
 	}
 
 	private _isFirst: boolean = false;
@@ -75,6 +94,14 @@ export class NavigationService implements CanActivate {
 	}
 	set isLast(value: boolean) {
 		this._isLast = value;
+	}
+
+	private _currentUrl: string = '';
+	get currentUrl(): string {
+		return this._currentUrl;
+	}
+	set currentUrl(value: string) {
+		this._currentUrl = value;
 	}
 
 	private _firstPath: string = '';
@@ -97,27 +124,16 @@ export class NavigationService implements CanActivate {
 	get nextPath(): string {
 		return this._nextPath;
 	}
-	set nextPath(relativePath: string){
-		let currentPath: string = relativePath.replace('/','');
-		let i: number = 0;
-		let iNext: number = 0;
-		let found: boolean = false;
-		for(let x of this.router.config){
-			let r: Route = <Route>x;
-			if(r.path === currentPath){
-				iNext = i + 1;
-				if(iNext > 0 && iNext < this.router.config.length){
-					this._nextPath = `/${this.router.config[iNext].path}`;
-				} else {
-					this._nextPath = '';
-				}
+	set nextPath(value: string){
+		this._nextPath = value;
+	}
 
-				break;
-			}
-			i++;
-		}
-
-
+	private _previousPath: string = '';
+	get previousPath(): string {
+		return this._previousPath;
+	}
+	set previousPath(value: string){
+		this._previousPath = value;
 	}
 
 }

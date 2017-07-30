@@ -16,7 +16,7 @@ export class FirstComponent implements OnInit {
 	}
 
 	ngOnInit(): void {
-
+		// TODO: figure out how to tell NavigationService what our url is
 
 	}
 }
